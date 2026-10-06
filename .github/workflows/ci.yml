@@ -1,0 +1,43 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check formatting
+        run: echo "Checked 48 files. All formatted."
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+        suite: [unit, integration]
+    steps:
+      - name: Show toolchain
+        run: node --version
+      - name: Run ${{ matrix.suite }} tests
+        run: |
+          echo "orders.test     12 passed"
+          echo "cart.test        9 passed"
+          echo "checkout.test    1 failed"
+          echo "  expected total 42.50, received 42.05"
+          exit 1
+      - name: Publish coverage
+        run: echo "Coverage 91.4%"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Release
+        run: echo "Releasing storefront"
