@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check formatting
-        run: echo "Checked 48 files. All formatted."
+        run: node scripts/check-format.mjs
 
   test:
     needs: lint
@@ -22,14 +22,9 @@ jobs:
       - name: Show toolchain
         run: node --version
       - name: Run ${{ matrix.suite }} tests
-        run: |
-          echo "orders.test     12 passed"
-          echo "cart.test        9 passed"
-          echo "checkout.test    1 failed"
-          echo "  expected total 42.50, received 42.05"
-          exit 1
-      - name: Publish coverage
-        run: echo "Coverage 91.4%"
+        run: node scripts/run-tests.mjs ${{ matrix.suite }}
+      - name: Verify build
+        run: node --check src/cart.js
 
   deploy:
     needs: test
