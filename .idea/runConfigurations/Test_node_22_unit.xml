@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test: node 22, unit" type="Runcradle" factoryName="RuncradleFactory">
+    <option name="presetVersion" value="3" />
+    <option name="workflow" value=".github/workflows/ci.yml" />
+    <option name="job" value="test" />
+    <option name="event" value="push" />
+    <option name="matrix" value="node:22,suite:unit" />
+    <option name="runnerMappings" value="ubuntu-latest=node:22-bookworm-slim" />
+    <option name="secretName" value="" />
+    <option name="secretReference" value="" />
+    <method v="2" />
+  </configuration>
+</component>
