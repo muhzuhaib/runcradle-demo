@@ -8,6 +8,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Check formatting
         run: node scripts/check-format.mjs
 
@@ -19,6 +20,7 @@ jobs:
         node: [20, 22]
         suite: [unit, integration]
     steps:
+      - uses: actions/checkout@v4
       - name: Show toolchain
         run: node --version
       - name: Run ${{ matrix.suite }} tests
@@ -34,5 +36,6 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - uses: actions/checkout@v4
       - name: Release
         run: echo "Releasing storefront"
